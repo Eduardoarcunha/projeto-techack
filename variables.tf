@@ -23,6 +23,27 @@ variable "project" {
     type = string
 }
 
+variable "environment" {
+    type = string
+}
+
 variable "region" {
     type = string
 } 
+
+# EC2 Bastion Host variables
+variable "ec2-bastion-public-key-path" {
+  type = string
+}
+
+variable "ec2-bastion-private-key-path" {
+  type = string
+}
+
+variable "ec2-bastion-ingress-ip-1" {
+  type = string
+}
+
+variable "bastion-bootstrap-script-path" {
+  type = string
+}

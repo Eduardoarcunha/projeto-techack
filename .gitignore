@@ -3,6 +3,8 @@
 
 .terraform.lock.hcl
 
+/secrets/
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
