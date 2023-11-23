@@ -19,6 +19,10 @@ variable "private-subnet-1-cidr-block" {
   type = string
 }
 
+variable "private-subnet-2-cidr-block" {
+  type = string
+}
+
 variable "project" {
     type = string
 }
@@ -45,5 +49,26 @@ variable "ec2-bastion-ingress-ip-1" {
 }
 
 variable "bastion-bootstrap-script-path" {
+  type = string
+}
+
+## RDS variables
+variable "rds-postgres-db-username" {
+  type = string
+}
+
+variable "rds-postgres-db-password" {
+  type = string
+}
+
+variable "rds-postgres-db-name" {
+  type = string
+}
+
+variable "rds-postgres-db-port" {
+  type = number
+}
+
+variable "rds-postgres-db-maintenance-window" {
   type = string
 }

@@ -104,3 +104,32 @@ resource "aws_route_table_association" "private-subnet-1-rtb-association" {
   subnet_id      = aws_subnet.vpc-private-subnet-1.id
   route_table_id = aws_route_table.private-subnet-1-rtb.id
 }
+
+############# Private Subnet 2 #############
+## Private Subnet 2
+resource "aws_subnet" "vpc-private-subnet-2" {
+  vpc_id            = aws_vpc.webserver-vpc.id
+  cidr_block        = var.private-subnet-2-cidr-block
+  availability_zone = "${var.region}b"
+  tags = {
+    Name = "${var.project}-private-subnet-02"
+  }
+}
+
+## Route Table for Private Subnet 2
+resource "aws_route_table" "private-subnet-2-rtb" {
+  vpc_id = aws_vpc.webserver-vpc.id
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.vpc-nat-gateway.id
+  }
+  tags = {
+    Name = "${var.project}-rtb-private-subnet-01"
+  }
+}
+
+## Route Table Association for Private Subnet 2
+resource "aws_route_table_association" "private-subnet-2-rtb-association" {
+  subnet_id      = aws_subnet.vpc-private-subnet-2.id
+  route_table_id = aws_route_table.private-subnet-2-rtb.id
+}
