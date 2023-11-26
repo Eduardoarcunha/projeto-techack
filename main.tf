@@ -37,6 +37,13 @@ resource "aws_security_group" "ec2-bastion-sg" {
     cidr_blocks = [var.ec2-bastion-ingress-ip-1]
     description = "Open to Public Internet"
   }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]  // Allow ICMP traffic from any IP address
+  }
   # TODO: Testar se pode tirar
   egress {
     from_port = 0
@@ -96,4 +103,12 @@ resource "aws_instance" "ec2-bastion-host" {
 resource "aws_eip_association" "ec2-bastion-host-eip-association" {
     instance_id = aws_instance.ec2-bastion-host.id
     allocation_id = aws_eip.ec2-bastion-host-eip.id
+}
+
+output "ec2-bastion-host-public-ip" {
+  value = aws_eip.ec2-bastion-host-eip.public_ip
+}
+
+output "ec2-bastion-host-private-ip" {
+  value = aws_eip.ec2-bastion-host-eip.private_ip
 }
