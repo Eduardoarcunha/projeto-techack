@@ -32,5 +32,6 @@ echo "Granting privileges for IP: $MYIP"
 mysql -u root -p'banana' <<EOF
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'banana';
 FLUSH PRIVILEGES;
+CREATE DATABASE rottentomatoes;
 EOF
 

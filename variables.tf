@@ -56,6 +56,10 @@ variable "mysql-bootstrap-script-path" {
   type = string
 }
 
+variable "webserver-bootstrap-script-path" {
+  type = string
+}
+
 ## RDS variables
 variable "rds-postgres-db-username" {
   type = string

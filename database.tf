@@ -7,7 +7,7 @@ resource "aws_security_group" "my_sql_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups = [aws_security_group.ec2-bastion-sg.id]
+    security_groups = [aws_security_group.ec2-bastion-sg.id, aws_security_group.app_sg.id]
   }
 
   ingress {
@@ -50,4 +50,8 @@ resource "aws_instance" "my_sql_instance" {
       }
     )
   )
+}
+
+output "my_sql_instance-private-ip" {
+  value = aws_instance.my_sql_instance.private_ip
 }
