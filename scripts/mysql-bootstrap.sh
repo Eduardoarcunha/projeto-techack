@@ -30,7 +30,7 @@ MYIP=${bastion_ip}
 echo "Granting privileges for IP: $MYIP"
 
 mysql -u root -p'banana' <<EOF
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'10.20.0.165' IDENTIFIED BY 'banana';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'banana';
 FLUSH PRIVILEGES;
 EOF
 

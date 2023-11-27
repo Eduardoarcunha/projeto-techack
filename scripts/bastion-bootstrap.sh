@@ -82,3 +82,5 @@ if [ ! -e ~/.google_authenticator ] && [ $USER != "root" ]; then
     logout
 fi
 EOF
+
+sudo dnf install mariadb105 -y
