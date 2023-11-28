@@ -60,6 +60,10 @@ variable "webserver-bootstrap-script-path" {
   type = string
 }
 
+variable "zabbix-bootstrap-script-path" {
+  type = string
+}
+
 ## RDS variables
 variable "rds-postgres-db-username" {
   type = string
