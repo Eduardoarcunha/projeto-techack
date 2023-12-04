@@ -8,8 +8,7 @@ resource "aws_security_group" "zabbix-server" {
     protocol    = "tcp"
     from_port   = 22
     to_port     = 22
-    # security_groups = [aws_security_group.ec2-bastion-sg.id]
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.ec2-bastion-sg.id]
   }
 
   ingress {
@@ -30,15 +29,14 @@ resource "aws_security_group" "zabbix-server" {
     protocol    = "tcp"
     from_port   = 10050
     to_port     = 10051
-    # cidr_blocks = var.zabbix_service_allowed_ip_addresses
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.private-subnet-1-cidr-block]
   }
 
   egress {
     protocol    = "-1"
     from_port   = 0
     to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"] # service can communitcate out withou restrictions, change it if needed
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -61,15 +59,3 @@ resource "aws_instance" "instance-zabbix-server" {
     Name = "${var.project}-zabbix-server-${var.environment}"
   }
 }
-
-# # Create EIP for EC2 Instance ZabbixServer
-# resource "aws_eip" "eip-instance-zabbix-server" {
-#   # count = 1
-#   instance = aws_instance.instance-zabbix-server.id
-#   vpc = true
-# }
-
-# Output
-# output "zabbixserver-eip" {
-#   value = aws_eip.eip-instance-zabbix-server.public_ip
-# }

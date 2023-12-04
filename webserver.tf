@@ -17,6 +17,13 @@ resource "aws_security_group" "app_sg" {
     security_groups = [aws_security_group.ec2-bastion-sg.id]
   }
 
+  ingress {
+    from_port = 10050
+    to_port = 10050
+    protocol = "tcp"
+    security_groups = [aws_security_group.zabbix-server.id]
+  }
+
 
   egress {
     from_port   = 0
@@ -27,7 +34,7 @@ resource "aws_security_group" "app_sg" {
 }
 
 resource "aws_instance" "app_instance" {
-  depends_on = [ aws_instance.my_sql_instance ]
+  depends_on = [ aws_instance.my_sql_instance, aws_instance.instance-zabbix-server]
 
   ami = "ami-05c13eab67c5d8861"
   instance_type = "t2.micro"
@@ -42,15 +49,14 @@ resource "aws_instance" "app_instance" {
   }
 
   user_data = data.template_file.webserver_script.rendered
-
 }
-
 
 data "template_file" "webserver_script" {
   template = file("${var.webserver-bootstrap-script-path}")
 
   vars = {
-    server_ip = aws_instance.my_sql_instance.private_ip
+    server_ip = aws_instance.my_sql_instance.private_ip,
+    zabbix_ip = aws_instance.instance-zabbix-server.private_ip
   }
 }
 
