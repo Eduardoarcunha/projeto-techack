@@ -1,25 +1,7 @@
-## Null label for VPC 
-# module "label-kodetronix-vpc" {
-#   source = "../../modules/terraform-null-label"
-
-#   namespace   = var.project
-#   environment = var.environment
-#   name        = "vpc"
-
-#   label_order = ["namespace", "name", "environment"]
-
-#   additional_tag_map = {
-#     ManagedBy = "Terraform"
-#   }
-# }
-
 ## VPC
 resource "aws_vpc" "webserver-vpc" {
   cidr_block           = var.vpc-cidr-block
   instance_tenancy = "default"
-#   tags = {
-#     Name = "${module.label-kodetronix-vpc.id}"
-#   }
 }
 
 ## VPC Internet Gateway

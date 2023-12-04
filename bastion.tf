@@ -38,13 +38,6 @@ resource "aws_security_group" "ec2-bastion-sg" {
     description = "Open to Public Internet"
   }
 
-  ingress {
-    from_port   = -1
-    to_port     = -1
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]  // Allow ICMP traffic from any IP address
-  }
-  # TODO: Testar se pode tirar
   egress {
     from_port = 0
     to_port = 0
